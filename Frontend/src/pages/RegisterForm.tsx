@@ -46,13 +46,17 @@ const RegisterForm = () => {
       
       if (response.data) {
         toast.success('Registration successful!');
-        navigate('/services');
+        // Add a small delay before navigation to ensure the toast is visible
+        setTimeout(() => {
+          navigate('/');  // Changed to redirect to home page
+        }, 1000);
       }
-    } catch (error: any) {
-      // More detailed error handling
-      const errorMessage = error.response?.data?.message || 'Failed to register. Please try again.';
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : 'Failed to register. Please try again.';
       toast.error(errorMessage);
-      console.error('Registration error:', error.response?.data || error);
+      console.error('Registration error:', error);
     }
   };
 
@@ -98,14 +102,21 @@ const RegisterForm = () => {
 
         <div>
           <label className="block text-sm font-medium text-gray-700">Service Type</label>
-          <input
-            type="text"
+          <select
             name="category"
             value={formData.category}
             onChange={handleChange}
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             required
-          />
+          >
+            <option value="">Select a service</option>
+            <option value="Cook">Cook</option>
+            <option value="Cleaner">Cleaner</option>
+            <option value="Plumber">Plumber</option>
+            <option value="Security Guard">Security Guard</option>
+            <option value="Technician">Technician</option>
+            <option value="Carpenter">Carpenter</option>
+          </select>
         </div>
 
         <div>
@@ -145,8 +156,8 @@ const RegisterForm = () => {
         </div>
 
         <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
+          type="submit" 
+          className="w-full bg-[#6db5bc] text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors font-bold"
         >
           Register
         </button>

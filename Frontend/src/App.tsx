@@ -21,6 +21,7 @@ function App() {
             <Route path="/worker/:id" element={<WorkerProfile />} />
             <Route path="/dashboard" element={<WorkerDashboard />} />
             <Route path="/register" element={<RegisterForm />} />
+            <Route path="/services" element={<ServiceCategoryPage />} />
           </Routes>
         </main>
         <Footer />
