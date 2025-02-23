@@ -46,7 +46,7 @@ const HomePage = () => {
                     <IconComponent className="h-12 w-12 text-blue-600" />
                     <div className="ml-4">
                       <h3 className="text-xl font-semibold">{category.name}</h3>
-                      <p className="text-blue-600">Starting ₹{category.startingPrice}</p>
+                      {/* <p className="text-blue-600">Starting ₹{category.startingPrice}</p> */}
                     </div>
                   </div>
                   <p className="text-gray-600 mb-4">{category.description}</p>

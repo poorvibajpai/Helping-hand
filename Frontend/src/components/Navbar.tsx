@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { HelpingHand } from 'lucide-react';
+// import { HelpingHand } from 'lucide-react';
 import logo from '../assets/logo.png'
 
 const Navbar = () => {
@@ -24,7 +24,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/register"
-              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+              className="bg-[#6db5bc] text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
             >
               Register as Worker
             </Link>
