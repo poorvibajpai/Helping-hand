@@ -7,19 +7,23 @@ import ServiceCategoryPage from './pages/ServiceCategoryPage';
 import WorkerProfile from './pages/WorkerProfile';
 import WorkerDashboard from './pages/WorkerDashboard';
 import RegisterForm from './pages/RegisterForm';
+import Footer from './components/Footer';
 
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50">
+      <div className="flex flex-col min-h-screen">
         <Navbar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/category/:id" element={<ServiceCategoryPage />} />
-          <Route path="/worker/:id" element={<WorkerProfile />} />
-          <Route path="/dashboard" element={<WorkerDashboard />} />
-          <Route path="/register" element={<RegisterForm />} />
-        </Routes>
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/category/:id" element={<ServiceCategoryPage />} />
+            <Route path="/worker/:id" element={<WorkerProfile />} />
+            <Route path="/dashboard" element={<WorkerDashboard />} />
+            <Route path="/register" element={<RegisterForm />} />
+          </Routes>
+        </main>
+        <Footer />
         <Toaster position="top-right" />
       </div>
     </Router>
