@@ -48,7 +48,7 @@ const RegisterForm = () => {
         toast.success('Registration successful!');
         // Add a small delay before navigation to ensure the toast is visible
         setTimeout(() => {
-          navigate('/');  // Changed to redirect to home page
+          navigate('/dashboard');  // Changed from '/' to '/dashboard'
         }, 1000);
       }
     } catch (error: unknown) {

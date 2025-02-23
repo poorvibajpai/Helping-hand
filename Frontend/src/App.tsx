@@ -7,6 +7,7 @@ import ServiceCategoryPage from './pages/ServiceCategoryPage';
 import WorkerProfile from './pages/WorkerProfile';
 import WorkerDashboard from './pages/WorkerDashboard';
 import RegisterForm from './pages/RegisterForm';
+import UserRegisterForm from './pages/UserRegisterForm';
 import Footer from './components/Footer';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Route path="/dashboard" element={<WorkerDashboard />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/services" element={<ServiceCategoryPage />} />
+            <Route path="/user-register" element={<UserRegisterForm />} />
           </Routes>
         </main>
         <Footer />

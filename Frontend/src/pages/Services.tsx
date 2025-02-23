@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { User } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface ServiceProvider {
   id: string;
@@ -16,6 +17,7 @@ interface ServiceProvider {
 const Services = () => {
   const [services, setServices] = useState<ServiceProvider[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -32,6 +34,26 @@ const Services = () => {
 
     fetchServices();
   }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:5000/api/users', formData);
+      
+      if (response.data) {
+        toast.success('Registration successful!');
+        setTimeout(() => {
+          navigate('/dashboard');
+        }, 1000);
+      }
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : 'Failed to register. Please try again.';
+      toast.error(errorMessage);
+      console.error('Registration error:', error);
+    }
+  };
 
   if (loading) {
     return (

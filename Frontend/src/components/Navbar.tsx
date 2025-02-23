@@ -15,16 +15,19 @@ const Navbar = () => {
                 src={logo}
                 alt="Company Logo"
               />
-              <span className="ml-2 text-2xl font-bold text-gray-800">Madad_Chahiye</span>
+              <span className="ml-2 text-xl font-bold text-gray-800">Madad_Chahiye</span>
             </Link>
           </div>
           <div className="flex items-center space-x-4">
-            <Link to="/dashboard" className="text-gray-700 hover: px-3 py-2 rounded-md">
-              Worker Dashboard
+            <Link
+              to="/user-register"
+              className="bg-[#C0E1E4] text-white px-4 py-2 rounded-md hover:bg-[#9CC5C9] transition-colors"
+            >
+              Register for Service
             </Link>
             <Link
               to="/register"
-              className="bg-[#6db5bc] text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+              className="bg-[#C0E1E4] text-white px-4 py-2 rounded-md hover:bg-[#9CC5C9] transition-colors"
             >
               Register as Worker
             </Link>
