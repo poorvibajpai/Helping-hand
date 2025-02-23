@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { HelpingHand } from 'lucide-react';
+import logo from '../assets/logo.png'
 
 const Navbar = () => {
   return (
@@ -9,7 +10,11 @@ const Navbar = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex items-center">
-              <HelpingHand className="h-8 w-8 text-blue-600" />
+              <img
+                className="h-8 w-8 object-contain"
+                src={logo}
+                alt="Company Logo"
+              />
               <span className="ml-2 text-2xl font-bold text-gray-800">Madad_Chahiye</span>
             </Link>
           </div>
