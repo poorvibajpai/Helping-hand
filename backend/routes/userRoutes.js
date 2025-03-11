@@ -1,56 +1,58 @@
 const express = require('express');
-const User = require('../models/User'); // Import User model
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
+
 const router = express.Router();
 
-// ✅ Create a new user (POST)
-router.post('/', async (req, res) => {
+// ✅ REGISTER ROUTE
+router.post('/register', async (req, res) => {
+  const { name, email, password, role, category, phone, location, charge } = req.body;
+
   try {
-    const newUser = new User(req.body);
-    await newUser.save();
-    res.status(201).json(newUser);
+    // Check if user already exists
+    let user = await User.findOne({ email });
+    if (user) return res.status(400).json({ msg: 'User already exists' });
+
+    // Create new user
+    user = new User({ name, email, password, role, category, phone, location, charge });
+    await user.save();
+
+    // Generate JWT token
+    const payload = { user: { id: user.id } };
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    res.status(201).json({ token });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.error('Error in register:', error.message);
+    res.status(500).send('Server Error');
   }
 });
 
-// ✅ Get all users (GET)
-router.get('/', async (req, res) => {
-  try {
-    const users = await User.find();
-    res.json(users);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+// ✅ LOGIN ROUTE
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
 
-// ✅ Get user by ID (GET)
-router.get('/:id', async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
-    if (!user) return res.status(404).json({ message: 'User not found' });
-    res.json(user);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ msg: 'Invalid Credentials' });
 
-//  Update user (PUT)
-router.put('/:id', async (req, res) => {
-  try {
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(updatedUser);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
+    // Compare password using the schema method
+    const isMatch = await user.comparePassword(password);
+    console.log('Entered password:', password);
+    console.log('Stored password:', user.password);
+    console.log('Password match:', isMatch);
 
-// ✅ Delete user (DELETE)
-router.delete('/:id', async (req, res) => {
-  try {
-    await User.findByIdAndDelete(req.params.id);
-    res.json({ message: 'User deleted successfully' });
+    if (!isMatch) return res.status(400).json({ msg: 'Invalid Credentials' });
+
+    // Generate JWT token
+    const payload = { user: { id: user.id } };
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    res.json({ token });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error in login:', error.message);
+    res.status(500).send('Server Error');
   }
 });
 
